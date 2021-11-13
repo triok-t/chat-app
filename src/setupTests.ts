@@ -4,8 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom'
 
-/* eslint-disable import/no-extraneous-dependencies */
 import Enzyme from 'enzyme'
-import ReactSixteenAdapter from 'enzyme-adapter-react-16'
+import EnzymeAdapter from '@wojtekmaj/enzyme-adapter-react-17';
 
-Enzyme.configure({ adapter: new ReactSixteenAdapter() })
+Enzyme.configure({ adapter: new EnzymeAdapter() });
