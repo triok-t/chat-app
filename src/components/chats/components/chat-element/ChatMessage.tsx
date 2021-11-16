@@ -152,9 +152,9 @@ const ChatMessage = ({ channelId, userId }: IProps) => {
       });
   };
 
-  if (fetchIsLoading) return (<div className="first-fetch-loading-text">Loading...</div>)
+  if (fetchIsLoading) return (<div className="status-before-query-text">Loading...</div>)
 
-  if (fetchIsError) return (<div className="first-fetch-loading-text">Error loading messages!</div>)
+  if (fetchIsError) return (<div className="status-before-query-text">Error loading messages!</div>)
 
   return (
     <>

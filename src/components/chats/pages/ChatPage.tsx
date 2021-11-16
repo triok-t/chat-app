@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import ChatChannel, { Channels } from "../components/chat-channel/ChatChannel";
 import { ChatTitle } from "../components/chat-title/ChatTitle";
 import ChatUser from "../components/chat-user/ChatUser";
