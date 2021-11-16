@@ -2,14 +2,10 @@ import "./ChatUser.scss";
 import Select from 'react-select'
 
 interface IProps {
-    className?: string;
-    isVisible?: boolean;
-    onChange?: any
+    onChange: any
 }
 
-const ChatUser = (props: IProps) => {
-
-    const { className, isVisible, onChange } = props;
+const ChatUser = ({ onChange }: IProps) => {
 
     const userOptions = [
         { value: 'Sam', label: 'Sam' },
@@ -18,12 +14,15 @@ const ChatUser = (props: IProps) => {
     ]
 
     return (
-        <div className={`container-box-user-selection ${className} ${isVisible ? "" : "border-r"}`} >
+        <div className='container-box-user-selection' >
             <Select
+                data-test='react-select'
                 className="react-select"
                 options={userOptions}
                 placeholder={'Choose your user'}
-                onChange={onChange}
+                onChange={(e) => {
+                    onChange(e.value)
+                }}
             />
         </div>
     );

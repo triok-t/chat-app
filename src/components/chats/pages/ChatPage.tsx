@@ -1,5 +1,6 @@
+import React from "react";
 import { useState } from "react";
-import ChatChannel from "../components/chat-channel/ChatChannel";
+import ChatChannel, { Channels } from "../components/chat-channel/ChatChannel";
 import { ChatTitle } from "../components/chat-title/ChatTitle";
 import ChatUser from "../components/chat-user/ChatUser";
 import MessageList from "../components/conversation/MessageList";
@@ -7,28 +8,19 @@ import "./ChatPage.scss";
 
 export function ChatPage() {
 
-    const [isVisible, setIsVisible] = useState<boolean>(true);
+    const [userId, setUserId] = React.useState<string>();
 
-    const [userId, setUserId] = useState<string>();
+    const [channelId, setChannelId] = React.useState<string>();
 
-    const [chatTitle, setChatTitle] = useState<string>();
+    const [chatTitle, setChatTitle] = React.useState<string>();
 
-    const detectDevice = () => {
-        if (window.innerWidth < 767) return isVisible ? "flex" : "flex-none";
-        else return "flex";
-    };
-
-    const displayChat = () => {
-        if (window.innerWidth < 767) return !isVisible ? "flex" : "flex-none";
-        else return "flex"
-    };
-
-    const handleOnUserSelectionChange = (e: any) => {
-        setUserId(String(e.value))
+    const handleOnUserSelectionChange = (userId: string) => {
+        setUserId(userId)
     }
 
-    const handleOnChannelSelect = (e: any) => {
-        setChatTitle(String(e))
+    const handleOnChannelSelect = (channelItem: Channels) => {
+        setChannelId(channelItem.channelId)
+        setChatTitle(channelItem.channelName)
     }
 
     return (
@@ -38,24 +30,20 @@ export function ChatPage() {
             <div className="container-chat-list-conversation">
                 <div className="box-search-namechat">
                     <ChatUser
-                        className={detectDevice()}
-                        isVisible={!isVisible}
+                        data-test="chat-user"
                         onChange={handleOnUserSelectionChange}
                     />
                     <ChatTitle
-                        className={displayChat()}
                         chatTitle={chatTitle}
                     />
                 </div>
                 <div className="box-listchat-conversation">
                     <ChatChannel
-                        isVisible={!isVisible}
-                        setIsVisible={setIsVisible}
+                        data-test="chat-channel"
                         userId={userId}
-                        className={detectDevice()}
                         onChange={handleOnChannelSelect}
                     />
-                    <MessageList className={displayChat()} />
+                    <MessageList userId={userId} channelId={channelId} />
                 </div>
             </div>
         </div>

@@ -2,11 +2,8 @@ import ChannelItem from "./ChannelItem";
 import "./ChatChannel.scss";
 
 interface IProps {
-    isVisible: boolean;
-    setIsVisible: any;
-    userId?: string;
-    className?: string;
-    onChange?: any
+    userId: string;
+    onChange: any
 }
 
 export interface Channels {
@@ -14,11 +11,7 @@ export interface Channels {
     channelName: string
 }
 
-const ChatChannel = (props: IProps) => {
-    const { isVisible, className, userId, setIsVisible, onChange } = props;
-
-    // console.log('userId: ', userId)
-    // console.log('Type of userId: ', typeof (userId))
+const ChatChannel = ({ userId, onChange }: IProps) => {
 
     const channelItems: Channels[] = [
         { channelId: '1', channelName: 'General Channel' },
@@ -27,17 +20,15 @@ const ChatChannel = (props: IProps) => {
     ]
 
     return (
-        <div className={`container-channel-list ${className}`}>
+        <div data-test="channel-container" className='container-channel-list'>
             {userId ?
                 <>
-                    {channelItems.map((channelItem) => {
+                    {channelItems.map((channelItem, idx) => {
                         return (
                             <ChannelItem
+                                data-test="channel-item"
+                                key={idx}
                                 channelItem={channelItem}
-                                userId={userId}
-                                className={className}
-                                isVisible={!isVisible}
-                                setIsVisible={setIsVisible}
                                 onChange={onChange}
                             />
                         )
@@ -46,34 +37,6 @@ const ChatChannel = (props: IProps) => {
                 :
                 <></>
             }
-            {/* {conversations
-                .sort((a, b) => {
-                    return (
-                        b.channelState.lastMessage?.dateCreated.getTime() -
-                        a.channelState.lastMessage?.dateCreated.getTime()
-                    );
-                })
-                .filter((conv) => {
-                    return !!conv.lastMessage || conv.attributes?.createdBy === self;
-                })
-                .filter((conv) => {
-                    return conv.friendlyName
-                        .replace(self, "")
-                        .replace("-", "")
-                        .match(search);
-                })
-                .map((item: any, index) => {
-                    return (
-                        // <ChatItem
-                        //   isVisible={!isVisible}
-                        //   conversation={item}
-                        //   setIsVisible={setIsVisible}
-                        // />
-                        <>
-                            Chat Item
-                        </>
-                    );
-                })} */}
         </div>
     );
 };

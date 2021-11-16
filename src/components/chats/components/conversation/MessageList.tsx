@@ -1,22 +1,22 @@
 import { ChatMessage } from "../chat-element";
-import { ChatForm } from "./ChatForm";
 import "./MessageList.scss";
 
 interface IProps {
-  className?: string;
+  channelId: string
+  userId: string
 }
 
-const MessageList = (props: IProps) => {
-  const { className } = props;
+const MessageList = ({ channelId, userId }: IProps) => {
 
   return (
-    <div className={`container-message-list ${className}`}>
-      <>
-        <div className="live-chat-max-height">
-          <ChatMessage />
-        </div>
-        <ChatForm />
-      </>
+    <div data-test="message-list" className='container-message-list'>
+      {!!channelId && !!userId &&
+        <>
+          <div className="live-chat-max-height">
+            <ChatMessage channelId={channelId} userId={userId} />
+          </div>
+        </>
+      }
     </div>
   );
 };
